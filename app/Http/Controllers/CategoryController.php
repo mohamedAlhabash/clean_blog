@@ -42,7 +42,8 @@ class CategoryController extends Controller
         Category::create([
             'name'=>$request->name
         ]);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success','Category Added');
+
     }
 
     /**
@@ -64,7 +65,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -76,7 +78,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required|unique:categories'
+        ]);
+        Category::find($id)->update([
+            'name'=>$request->name
+        ]);
+        return redirect()->route('admin.categories.index')->with('success','Category Updated');
+
     }
 
     /**
@@ -87,7 +96,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete;
-        return redirect()->back();
+        Category::find($id)->delete();
+        return redirect()->route('admin.categories.index')->with('success','Category deleted');
     }
 }
