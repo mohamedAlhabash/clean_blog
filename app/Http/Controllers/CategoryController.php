@@ -42,7 +42,9 @@ class CategoryController extends Controller
         Category::create([
             'name'=>$request->name
         ]);
-        return redirect()->route('admin.categories.index')->with('success','Category Added');
+        return redirect()->route('admin.categories.index')
+        ->with('success','Category Added')
+        ->with('type', 'success');
 
     }
 
@@ -84,7 +86,9 @@ class CategoryController extends Controller
         Category::find($id)->update([
             'name'=>$request->name
         ]);
-        return redirect()->route('admin.categories.index')->with('success','Category Updated');
+        return redirect()->route('admin.categories.index')
+        ->with('success','Category Updated')
+        ->with('type', 'success');
 
     }
 
@@ -97,6 +101,8 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect()->route('admin.categories.index')->with('success','Category deleted');
+        return redirect()->route('admin.categories.index')
+        ->with('success','Category deleted')
+        ->with('type', 'danger');
     }
 }
