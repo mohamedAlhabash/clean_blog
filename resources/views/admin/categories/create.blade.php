@@ -19,7 +19,12 @@
                         <div class="card-body">
                             <form action="{{route('admin.categories.store')}}" method="POST">
                             @csrf
-                            <input type="text" class="form-control mb-3" name="name" placeholder="Category Name">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" value="{{ old('name')}}" name="name" placeholder="Category Name">
+                                @error('name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                             <button class="btn btn-success">Save</button>
                             </form>
                         </div>
